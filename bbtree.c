@@ -82,7 +82,7 @@ using namespace BBTree;
 
 void Clear()
 {
-  system("rm ./data/*.*");
+  system("rm -rf readme data/*.*");
 }
 
 /**
@@ -97,8 +97,8 @@ int main(int argv, char** arg)
   {
     clock_t t = clock();
    
-    //TreeSimulator ts(4,3, 16, &create_node); 
-    TreeSimulator ts(37,3, 1024*1024*10, &create_node); //about 1GB data
+    TreeSimulator ts(4,3, 16, &create_node); 
+    //TreeSimulator ts(37,3, 1024*1024*10, &create_node); //about 1GB data
     ts.SimulateTree();     
     storage.SaveBuf(); 
     
