@@ -42,6 +42,39 @@ namespace BBTree
      int64_t fid;
      int depth;
    };
+
+   struct Id
+   {
+     Id(int64_t id, bool isList)
+     {
+       this->id = id;
+       this->isList = isList;
+     }
+     Id()
+     {
+       this->id = 0;
+       this->isList = false;
+     }
+     int64_t id;
+     bool isList;
+   };
+
+   struct NumberNodes
+   {
+     NumberNodes(int allNodes, int listNodes)
+     {
+        this->AllNodes = allNodes;
+        this->ListNodes = listNodes;
+     }
+     NumberNodes()
+     {
+        this->AllNodes = 0;
+        this->ListNodes = 0;
+     }
+     int AllNodes;
+     int ListNodes;
+   };
+   
 }
 
 #endif /* EVENT_H */

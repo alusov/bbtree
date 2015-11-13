@@ -26,7 +26,6 @@ namespace BBTree
     Storage(const std::string& file)
     {
       this->file = file;
-      Clear(); 
     }
 
     void Write(const Event& event)
@@ -42,11 +41,6 @@ namespace BBTree
     }
 
     private:
-
-    void Clear()
-    {
-      remove(file.c_str());
-    }
     
     void WriteToFile()
     {

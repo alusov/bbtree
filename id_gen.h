@@ -8,7 +8,6 @@
 #define TIME_SIZE 8
 #define INFO_SIZE 2
 #define D_R_SIZE 1
-#define RECORD_SIZE TIME_SIZE + 5 * ID_SIZE + ID_BRANCH + STATE_SIZE + DEPTH_SIZE + INFO_SIZE + D_R_SIZE * 10 + 1
 
 #define ID_NODE_OFFSET   TIME_SIZE + D_R_SIZE
 #define PID_NODE_OFFSET  ID_NODE_OFFSET + ID_SIZE + D_R_SIZE
@@ -20,6 +19,11 @@
 #define DEPTH_OFFSET     STATE_OFFSET + STATE_SIZE + D_R_SIZE
 #define INFO_SIZE_OFFSET DEPTH_OFFSET + DEPTH_SIZE + D_R_SIZE
 #define INFO_OFFSET      INFO_SIZE_OFFSET + INFO_SIZE + D_R_SIZE
+
+#define NUM_NODES_SIZE 12
+#define DEPTH_RECORD_SIZE DEPTH_SIZE + D_R_SIZE + NUM_NODES_SIZE + D_R_SIZE + NUM_NODES_SIZE
+#define NUM_NODES_OFFSET DEPTH_SIZE + D_R_SIZE
+#define NUM_LIST_NODES_OFFSET NUM_NODES_OFFSET + NUM_NODES_SIZE + D_R_SIZE
 
 #define D_R '|' //delimiter
 
@@ -34,7 +38,7 @@ namespace BBTree
      static int64_t GetId(size_t info)
      {
         int64_t ret = curr_offset;
-        curr_offset+=(RECORD_SIZE + info);
+        curr_offset+=(INFO_OFFSET + info + sizeof('\n'));
         return ret;
      }
   };
