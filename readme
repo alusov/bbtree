@@ -1,4 +1,0 @@
-1) to compile call
-g++ -std=c++0x bbtree.c
-
-2) buf.data - format data sample 

@@ -6,7 +6,7 @@
 
 namespace BBTree
 {
-  typedef int64_t (*T_CREATE_NODE)(int64_t pid, NodeState state, short branch, const std::string &data);
+  typedef int (*T_CREATE_NODE)(int pid, NodeState state, short branch, const std::string &data);
 
   class TreeSimulator
   {
@@ -26,20 +26,20 @@ namespace BBTree
     }
 
     void SimulateTree()
-    {   
+    {  
       srand(time(NULL));
-      int64_t id = createNode(0, CandidateForBranching, 1, "Root node");
+      int id = createNode(0, CandidateForBranching, 1, "Root node");
       curNum++;
       CreateChildNodes(id, 0);
     }
 
     private:
-    void CreateChildNodes(int64_t pid, int depthNode)
+    void CreateChildNodes(int pid, int depthNode)
     {
       curNum++;
       short branchNum=0;
       int err = 0;
-      int64_t id;
+      int id;
       for(int i = 0; i < maxBranch && !err; i++)
       {
         if(IsCreateBranch(height, depthNode) && curNum <= maxNodes) 
@@ -56,6 +56,7 @@ namespace BBTree
       return range > depthNode;
     }
   };
+
 }
 
 #endif /* TREE_SIMULATOR_H */

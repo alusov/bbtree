@@ -1,5 +1,6 @@
 #ifndef RING_BUFFER_H
 #define RING_BUFFER_H
+#include <stdint.h>
 
 namespace BBTree
 {
@@ -26,6 +27,11 @@ public:
   void Read(DATA_T &value)
   {
     value = data[readCount++ & mask];
+  }
+
+  DATA_T Read_()
+  {
+    return data[readCount++ & mask];
   }
 
   INDEX_T Count()const
