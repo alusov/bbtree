@@ -12,15 +12,27 @@
 
 namespace BBTree
 {
+///Tree class calculates X and Y coordinate. Notes Y coordinate is tree's level now. 
+///Please, learn the following articles to understand the algorithm:
+/// 1. Tidier Drawings of Trees. EDWARD M. REINGOLD AND JOHN S. TILFORD  
+/// 2. A Node-Positioning Algorithm for General Trees. John Q. Walker II
+/// 3. Improving Walker’s Algorithm to Run in Linear Time. Christoph Buchheim, Michael Junger, and Sebastian Leipert
+
   class Tree
   {
      private:
      FileManager fm;
      
-     public: 
+     public:
+/**
+\brief Constructor.
+
+\param[in] file File's name with tree nodes (buf_new.data).
+*/ 
      Tree(const std::string& file): fm(file)
      {
      }
+///That is main function. It calculates X and Y node's coordinates.
      void TreeLayout()
      {
         fm.Open();

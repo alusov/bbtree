@@ -12,15 +12,14 @@
 #include "def.h"
 #include "file_manager.h"
 
-#define FILE_PATH_DEPTH "./../data/depth.data"
-#define FILE_DEPTH_FOLDER "./../data/"
-#define FILE_DEPTH "depth.data"
-
+///It's max number of nodes to store in memory before saving to file.
 #define MAX_COUNT 10*1024*1024
 
 
 namespace BBTree
 {
+///Depth analysis class calculates number of nodes/list nodes for each level.
+///Also it prepares node's id/list nodes's id and X coordinate for each level.
   class DepthAnalysis
   {
     private:
@@ -30,11 +29,15 @@ namespace BBTree
     int count = 0;
     
     public:
-
+/**
+\brief Constructor 
+\param[in] file It's buf_new.data
+*/
     DepthAnalysis(const std::string& file) : fm(file)
     { 
     }
-
+///It's main function. It runs preorder traversal and saves node's id and X coordinate for each level. 
+///Then it calculates common number of nodes/list nodes for each level.
     void DoAnalysis()
     {
       fm.Open();
@@ -65,10 +68,8 @@ namespace BBTree
     {
       std::for_each(depthId.begin(), depthId.end(), std::bind(&DepthAnalysis::CopyDepthNumber, this, std::placeholders::_1));
       for(auto itDepth=depthId.begin(); itDepth!=depthId.end(); ++itDepth)
-      {
-        std::stringstream fileNameAllNodes, fileNameListNodes;
-        fileNameAllNodes << FILE_DEPTH_FOLDER << itDepth->first << FILE_DEPTH;        
-        FileManager fsAll(fileNameAllNodes.str());
+      {      
+        FileManager fsAll(Utils::GetLevelFileName(itDepth->first));
         FileManager fsList;
         fsAll.OpenW();       
         for(auto itNumber=itDepth->second.begin(); itNumber!=itDepth->second.end(); ++itNumber)
@@ -79,8 +80,7 @@ namespace BBTree
           {
             if(!fsList.IsOpen())
             {
-              fileNameListNodes << FILE_DEPTH_FOLDER << 'l' << itDepth->first << FILE_DEPTH;
-              fsList.SetFile(fileNameListNodes.str());
+              fsList.SetFile(Utils::GetListLevelFileName(itDepth->first));
               fsList.OpenW();
             }
             fsList.Write(ID_SIZE, itNumber->id);  fsList.Write(1, '\n');

@@ -12,18 +12,27 @@
 
 namespace BBTree
 {
-
+///Node analysis class calculates node's left sibling, node's right sibling and first child.
 class NodeAnalysis
 {
 private:
   std::string fileName;
   FileManager fm;
 public:
+/**
+\brief Constructor.
+
+\param[in] fileName File name to store tree's node. We use buf.data here.
+\param[in] newFileName We us buf_new.data to extend buf.data.
+*/
   NodeAnalysis(const std::string& fileName, const std::string& newFileName) : fm(newFileName)
   {
     this->fileName = fileName; 
   }
 
+
+///Main function. It copies data from buf.data file to buf_new.data. It adds new fields, see field's description in readme. Then it calculates
+///node's left sibling, node's right sibling and node's first child.  
   int DoAnalysis()
   {
     CopyAndExtendFile(); 

@@ -20,6 +20,7 @@ These events are processed to create b&b tree.
 #include "node_analysis.h"
 #include "depth_analysis.h"
 #include "tree.h"
+#include "tree_manager.h"
 
 /// This is the path to file with solver's events
 #define FILE_NAME "./../data/buf.data"
@@ -81,9 +82,11 @@ void Clear()
 }
 
 /**
-It's main function. Now creates tree simulator object and simulate tree.
-Then tree analysis is done.
-
+It's main function. It creates tree simulator object and simulate tree.
+Node analysis module calculates node's left sibling, node's right sibling and 
+first child. Tree layout module calculates X and Y coordinate. Notes Y coordinate
+is tree's level now. Depth analysis module calculates number of nodes/list nodes for each level.
+Also it prepares node's id/list nodes's id and X coordinate for each level.
 */
 int main(int argv, char** arg)
 {
@@ -106,6 +109,7 @@ int main(int argv, char** arg)
     t = clock() - t;
     std::cout << "node analysis: " << ((float)t)/CLOCKS_PER_SEC << " c. \n";
 
+    //Note treeLayout runs about 50 sec for 1000 000 nodes.
     Tree tree(FILE_NAME_NEW);
     tree.TreeLayout();
     t = clock() - t;

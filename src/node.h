@@ -106,6 +106,14 @@ namespace BBTree
        nodePtr->thread = std::stoi(record.substr(THREAD_OFFSET, THREAD_SIZE), NULL);
        nodePtr->ancestor = std::stoi(record.substr(ANCESTOR_OFFSET, ANCESTOR_SIZE), NULL);
        return nodePtr;
+     }
+
+     static std::shared_ptr<Id> GetId(const std::string& record)
+     {
+       std::shared_ptr<Id> idPtr(new Id());
+       idPtr->id = std::stoi(record.substr(0, ID_SIZE), NULL);
+       idPtr->x = std::stod(record.substr(DEPTH_X_OFFSET, X_SIZE), NULL);
+       return idPtr;
      }    
    };
    

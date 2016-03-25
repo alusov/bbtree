@@ -4,6 +4,9 @@
 #include <string>
 #include <sys/time.h>
 #include <stdio.h>
+#include <string>
+#include <sstream>
+#include "def.h"
 
 namespace BBTree
 {
@@ -22,13 +25,26 @@ namespace BBTree
 
      static int64_t Position(int node, int recordSize, int offset)
      {
-       //std::cout << "node " << node << " recordSize " << recordSize << " offset " << offset << '\n';
        return (int64_t)(node-1)*recordSize+offset;
      }
 
      static int64_t Position(int node, int recordSize)
      {
        return Position(node,recordSize,0);
+     }
+
+     static std::string GetLevelFileName(int level)
+     {
+       std::stringstream fileNameAllNodes;
+       fileNameAllNodes << FILE_DEPTH_FOLDER << level << FILE_DEPTH;
+       return fileNameAllNodes.str();
+     }
+
+     static std::string GetListLevelFileName(int level)
+     {
+       std::stringstream fileNameListNodes;
+       fileNameListNodes << FILE_DEPTH_FOLDER << 'l' << level << FILE_DEPTH;
+       return fileNameListNodes.str();
      }
   };
 }

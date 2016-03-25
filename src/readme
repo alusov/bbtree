@@ -1,0 +1,44 @@
+Descriptions types of files:
+
+buf.data This data we get from B&B solver or tree simulator. 
+ 
+name          field's length  comment
+time          12              
+node's id     9               start from 1
+parent        9               root node has empty parent(id = 0)
+branch        2               That is child number. It starts from 1. Next child is predvious number + 1. 
+state         1               See enum BBTree::NodeState
+info          15              Any info
+
+Note, 0 means empty value. There is not any node's id with value 0. 
+There is delimiter | between fileds. There is '\n' at the end of each record.
+
+buf_new.data (This file extends buf.data)
+
+6 fields from buf.data      
+left sibling  9
+right sibling 9
+first child   9
+X coordinate  12
+level         5               It starts from 0. Root node's level is 0. 
+4 fields for tree layout:
+prelim        12
+mod           12
+thread's id   9
+ansector's id 9
+            
+
+depth.data (This file stores data about number of nodes for each level)
+
+level         5            
+nodes         9               Number of nodes for the level
+list nodes    9               Number of list nodes for the level
+
+1depth.data(This file stores node's id and X coordinate for level 1. See level in the file's name)
+
+node's id     9
+X coordinate  12             
+
+l4depth.data (This file stores list node's id for level 4)
+
+node's id     9

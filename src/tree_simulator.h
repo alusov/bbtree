@@ -6,8 +6,10 @@
 
 namespace BBTree
 {
+///This is pointer to the callback function which creates node, stores node in storage and returns node's id.
   typedef int (*T_CREATE_NODE)(int pid, NodeState state, short branch, const std::string &data);
 
+///Tree simulator class simulates tree. 
   class TreeSimulator
   {
     private:
@@ -16,7 +18,14 @@ namespace BBTree
     int maxNodes;
     int curNum = 0;
     T_CREATE_NODE createNode;
-    public:  
+    public:
+/**
+\brief Constructor
+\param[in] treeHeight Tree height
+\param[in] maxBranch Max number of child nodes
+\param[in] maxNodes Max number of nodes in the tree
+\param[in] createNode Callback function which generates event when a node is created.
+*/  
     TreeSimulator(int treeHeight, int maxBranch, int maxNodes , T_CREATE_NODE createNode)
     {
       this->height = treeHeight;
@@ -24,7 +33,7 @@ namespace BBTree
       this->maxNodes = maxNodes;
       this->createNode = createNode;
     }
-
+///Main function to simulate tree
     void SimulateTree()
     {  
       srand(time(NULL));
@@ -52,7 +61,8 @@ namespace BBTree
 
     bool IsCreateBranch(int treeHeight, int depthNode)
     {
-      int range = rand() % treeHeight + 1;//from 1 to treeHeight
+      //from 1 to treeHeight
+      int range = rand() % treeHeight + 1;
       return range > depthNode;
     }
   };
