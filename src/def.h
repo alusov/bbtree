@@ -38,6 +38,7 @@
 
 #define NUM_NODES_SIZE              9
 #define DEPTH_RECORD_SIZE           (ID_SIZE + D_R_SIZE + X_SIZE + 1)
+#define ALL_DEPTH_RECORD_SIZE       (Y_SIZE + 2*NUM_NODES_SIZE + 2*D_R_SIZE + 1)
 #define DEPTH_X_OFFSET              ID_SIZE + D_R_SIZE
 #define NUM_NODES_OFFSET            Y_SIZE + D_R_SIZE
 #define NUM_LIST_NODES_OFFSET       NUM_NODES_OFFSET + NUM_NODES_SIZE + D_R_SIZE
@@ -45,6 +46,8 @@
 #define D_R '|' //delimiter
 #define NODE_DISTANCE 1
 
+#define FILE_NAME "./../data/buf.data"
+#define FILE_NAME_NEW "./../data/buf_new.data"
 #define FILE_PATH_DEPTH "./../data/depth.data"
 #define FILE_DEPTH_FOLDER "./../data/"
 #define FILE_DEPTH "depth.data"

@@ -20,11 +20,7 @@ These events are processed to create b&b tree.
 #include "node_analysis.h"
 #include "depth_analysis.h"
 #include "tree.h"
-#include "tree_manager.h"
-
-/// This is the path to file with solver's events
-#define FILE_NAME "./../data/buf.data"
-#define FILE_NAME_NEW "./../data/buf_new.data"
+#include "def.h"
 
 /// BBTree namespace is used for this project
 namespace BBTree
@@ -95,9 +91,9 @@ int main(int argv, char** arg)
   {
     clock_t t = clock();
 
-    TreeSimulator ts(4,5, 100, &create_node);
+    //TreeSimulator ts(4,3,16, &create_node);
 
-    //TreeSimulator ts(37,3, 1024*1024*10, &create_node); //about 1.6GB data
+    TreeSimulator ts(15,3,1000, &create_node);
     ts.SimulateTree();
     storage.SaveBuf();
 
