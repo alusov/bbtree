@@ -1,0 +1,67 @@
+<html>
+<meta charset="utf-8">
+<style>
+
+body{
+  margin:2px;
+}
+circle{
+  stroke:steelblue;  
+  stroke-width:2px;
+}
+line{
+  stroke:grey;
+  stroke-width:2px;
+}
+#treesvg g text:hover, #treesvg g circle:hover{
+  cursor:default;
+}
+
+#treesvg{
+  border:1px solid grey;
+}
+#labelpos{
+  color:white;
+}
+#g_labels text{
+  text-anchor:left;
+  font: 14px sans-serif;
+}
+
+div.tooltip {	
+  position: absolute;			
+  text-align: left;			
+  width: 160px;					
+  height: 120px;					
+  padding: 10px;				
+  font: 12px sans-serif;		
+  background: lightsteelblue;	
+  border: 2px;
+  border-color: red; 		
+  border-radius: 8px;			
+  pointer-events: none;			
+}
+
+button.seekButton {
+  background: -moz-linear-gradient(#00BBD6, #EBFFFF);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#00BBD6), to(#EBFFFF));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
+  padding: 3px 7px;
+  color: #333;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #666;
+}
+
+</style>
+
+<body>
+<script type="text/javascript" src="d3/d3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="client.js" charset="utf-8"></script>
+<!--form-->
+<p style="text-align:center">Node ID: <input type="text" id="node_id" name="nodeid" onkeydown="if(event.keyCode===13) GetNodes();"> <button class="seekButton" type="button" onClick="GetNodes()" id="btnSearch">Seek</button></p>
+<!--/form-->
+<div class="tooltip" style="opacity:0" id="tool_tip"></div>
+</body>
+</html>

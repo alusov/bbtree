@@ -3,6 +3,7 @@
 
 #include <string>
 #include <stdint.h>
+#include <stdlib.h> 
 #include <iomanip>
 #include "def.h"
 #include <memory>
@@ -41,6 +42,48 @@ namespace BBTree
      double mod;
      int thread;
      int ancestor;
+   };
+
+   struct Point
+   {
+     Point()
+     {
+     }
+     Point(double x_, double y_) : x(x_), y(y_)
+     {
+     }
+     double x;
+     double y;
+   };
+
+   struct Pair
+   {
+     Pair()
+     {
+     }
+     Pair(int start, int end) : startId(start), endId(end)
+     {
+     }
+     bool operator < (const Pair& pair) const
+     {
+       return startId < pair.startId ? true : startId==pair.startId ? endId < pair.endId : false;   
+     }
+     int startId;
+     int endId;
+     
+   };
+   
+   struct Edge
+   {
+     Edge()
+     {
+     }
+     Edge(int startId, int endId, double startX, double startY, double endX, double endY) : pair(startId, endId), start(startX, startY), end(endX,endY)
+     {
+     }
+     Pair pair;
+     Point start;
+     Point end;
    };
 
    struct ShiftChange
@@ -92,10 +135,12 @@ namespace BBTree
      static std::shared_ptr<Node> GetNode(const std::string& record)
      {
        std::shared_ptr<Node> nodePtr(new Node());
+       nodePtr->time = record.substr(TIME_OFFSET, TIME_SIZE);
        nodePtr->id = std::stoi(record.substr(ID_NODE_OFFSET, ID_SIZE), NULL);
        nodePtr->pid = std::stoi(record.substr(PID_NODE_OFFSET, ID_SIZE), NULL);
        nodePtr->branch = std::stoi(record.substr(BRANCH_OFFSET, ID_BRANCH_SIZE), NULL);
        nodePtr->nodeState = (NodeState)std::stoi(record.substr(STATE_OFFSET, STATE_SIZE), NULL);
+       nodePtr->info = record.substr(INFO_OFFSET, INFO_SIZE);    
        nodePtr->lid = std::stoi(record.substr(LID_NODE_OFFSET, ID_SIZE), NULL);
        nodePtr->rid = std::stoi(record.substr(RID_NODE_OFFSET, ID_SIZE), NULL);
        nodePtr->fid = std::stoi(record.substr(FID_NODE_OFFSET, ID_SIZE), NULL);
@@ -106,6 +151,14 @@ namespace BBTree
        nodePtr->thread = std::stoi(record.substr(THREAD_OFFSET, THREAD_SIZE), NULL);
        nodePtr->ancestor = std::stoi(record.substr(ANCESTOR_OFFSET, ANCESTOR_SIZE), NULL);
        return nodePtr;
+     }
+
+     static std::shared_ptr<Id> GetId(const std::string& record)
+     {
+       std::shared_ptr<Id> idPtr(new Id());
+       idPtr->id = std::stoi(record.substr(0, ID_SIZE), NULL);
+       idPtr->x = std::stod(record.substr(DEPTH_X_OFFSET, X_SIZE), NULL);
+       return idPtr;
      }    
    };
    
