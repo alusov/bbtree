@@ -4,11 +4,23 @@
   "description": "Web access to B&B Tree",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "Alexander Usov",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.13.4"
-  }
+    "express": "^4.14.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/n/A.git"
+  },
+  "keywords": [
+    "bbtree"
+  ],
+  "bugs": {
+    "url": "https://github.com/n/A/issues"
+  },
+  "homepage": "https://github.com/n/A#readme"
 }

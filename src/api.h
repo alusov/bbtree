@@ -26,23 +26,25 @@ namespace BBTree
 This is callback function. Solver or tree simulator can use it to generate events when a node is created.
 
 \param[in] parentId Parent node's id. Note, use 0 for root node.
+\param[in] Id node's id.
 \param[in] state Node's state. We can fill enum with necessary states.
 \param[in] branch It's number of node in linked list. Start number from 1.
 \param[in] info It is node's data. It is any information connected with node.
-\return Node's id. Note, It's offset in file with solver's events.
 */
-  int create_node(int parentId, NodeState state, short branch, const std::string &info)
+  void create_node(int parentId, int id, NodeState state, short branch, const std::string &info)
   {
      NodeBase node;
-     node.id = IdGen::GetId();
+     node.id = id;
+     node.idEnd = 0;
      node.pid = parentId;
      node.branch = branch;
      Utils::GetTime(node.time);
      node.nodeState = state;
      node.info = info;
      storage.Write(node);
-     return node.id;
   }
+
+  
 /**
 \brief API function to update node's state.
 
@@ -53,9 +55,13 @@ Note, it is not implemented yet. Please, don't use it.
 \param[in] state Node's state.
 \param[in] info It is node's data. It is any information connected with node.
 */
-  void update_node_state(int id, NodeState state, const std::string &info)
+  void update_node(int id, int idEnd, NodeState state)
   {
-      throw "Not implemented yet.";
+     NodeBase node;
+     node.id = id;
+     node.idEnd = idEnd;
+     node.nodeState = state;
+     storage.Update(node);
   }
 
 }

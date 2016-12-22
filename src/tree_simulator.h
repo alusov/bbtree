@@ -1,13 +1,14 @@
 #ifndef TREE_SIMULATOR_H
 #define TREE_SIMULATOR_H
 
+#include "id_gen.h"
 #include <stdlib.h>
 #include <time.h> 
 
 namespace BBTree
 {
-///This is pointer to the callback function which creates node, stores node in storage and returns node's id.
-  typedef int (*T_CREATE_NODE)(int pid, NodeState state, short branch, const std::string &data);
+///This is pointer to the callback function which creates node, stores node in storage.
+  typedef void (*T_CREATE_NODE)(int pid, int id, NodeState state, short branch, const std::string &data);
 
 ///Tree simulator class simulates tree. 
   class TreeSimulator
@@ -37,7 +38,8 @@ namespace BBTree
     void SimulateTree()
     {  
       srand(time(NULL));
-      int id = createNode(0, CandidateForBranching, 1, "Root node");
+      int id = IdGen::GetId();
+      createNode(0, id, NewBorn, 1, "Root node");
       curNum++;
       CreateChildNodes(id, 0);
     }
@@ -53,7 +55,8 @@ namespace BBTree
       {
         if(IsCreateBranch(height, depthNode) && curNum <= maxNodes) 
         {     
-          id = createNode(pid, CandidateForBranching, ++branchNum, "Some node");
+          id = IdGen::GetId();
+          createNode(pid, id, NewBorn, ++branchNum, "Some node");
           CreateChildNodes(id, depthNode + 1);
         } 
       }  

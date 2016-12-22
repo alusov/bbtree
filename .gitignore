@@ -1,3 +1,13 @@
-*~*
-*.out
-*.save
+#bin files
+*.a
+*.o
+*.exe
+
+#temporary files
+deps.inc
+*.cache
+*~
+
+#netbeans files
+nbproject/
+Makefile-bnb.mk

@@ -13,18 +13,16 @@ namespace BBTree
 
   enum NodeState
   {
-    Branched = 1,
-    CandidateForProcessing,
-    CandidateForBranching,
-    Fathomed,
-    Infeasible,
-    Integer
+    NewBorn = 1,
+    GiveBirth = 2,
+    EndUp = 3
   };
 
   struct NodeBase
   {
     std::string time;
     int id;
+    int idEnd;
     int pid;
     short branch;  
     NodeState nodeState;
@@ -137,6 +135,7 @@ namespace BBTree
        std::shared_ptr<Node> nodePtr(new Node());
        nodePtr->time = record.substr(TIME_OFFSET, TIME_SIZE);
        nodePtr->id = std::stoi(record.substr(ID_NODE_OFFSET, ID_SIZE), NULL);
+       nodePtr->idEnd = std::stoi(record.substr(ID_END_OFFSET, ID_SIZE), NULL);
        nodePtr->pid = std::stoi(record.substr(PID_NODE_OFFSET, ID_SIZE), NULL);
        nodePtr->branch = std::stoi(record.substr(BRANCH_OFFSET, ID_BRANCH_SIZE), NULL);
        nodePtr->nodeState = (NodeState)std::stoi(record.substr(STATE_OFFSET, STATE_SIZE), NULL);
@@ -159,7 +158,12 @@ namespace BBTree
        idPtr->id = std::stoi(record.substr(0, ID_SIZE), NULL);
        idPtr->x = std::stod(record.substr(DEPTH_X_OFFSET, X_SIZE), NULL);
        return idPtr;
-     }    
+     }
+     
+     static int GetIdFromNodeEnd(const std::string& record)
+     {
+       return std::stoi(record.substr(ID_NODE_OFFSET_END, ID_SIZE), NULL);
+     }  
    };
    
 }

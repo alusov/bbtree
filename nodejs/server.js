@@ -15,6 +15,12 @@ app.get('/node', function (req, res) {
    })
 })
 
+app.get('/nodeend', function (req, res) {
+   tree.GetTreeByIdEnd(req.query.nodeid, req.query.width, req.query.height, function (mystr) {
+   res.end(mystr);
+   })
+})
+
 app.get('/point', function (req, res) {
    tree.GetTreeByPoint(req.query.x, req.query.y, req.query.width, req.query.height, function (mystr) {
    res.end(mystr);

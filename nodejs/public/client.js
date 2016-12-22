@@ -29,6 +29,29 @@ function GetNodes() {
     xhr.send(null);
 }
 
+function GetNodesFromIdEnd() {
+    var nodeid = document.getElementById("node_id_end").value;   
+    var url = "http://127.0.0.1:8081/nodeend?nodeid=" + nodeid + '&width=' + (WINDOW_WIDTH/NODE_DISTANCE) + '&height=' + (WINDOW_HEIGHT/NODE_DISTANCE);
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);  
+    xhr.onreadystatechange = function() {   
+      if (xhr.readyState == 4 && xhr.status == 200) {        
+        var tree = JSON.parse(xhr.responseText);
+        if(tree.status !=0){
+          return;
+        }                
+        var centerNode = tree.Nodes.find(function(node){return node.IDEnd==nodeid;});
+        currentX = centerNode.X;
+        currentY = centerNode.Y;
+        offsetX = (WINDOW_WIDTH / 2) - (centerNode.X * NODE_DISTANCE);
+        offsetY = (WINDOW_HEIGHT / 2) - (centerNode.Y * NODE_DISTANCE);      
+        DrawTree(tree, offsetX, offsetY);
+      }
+    };    
+    xhr.send(null);
+}
+
+
 function DrawTree(tree, offsetX, offsetY){
   d3.select("#treesvg").remove();
   var svg = d3.select("body").append("svg")
@@ -71,7 +94,7 @@ function DrawCircles(tree, offsetX, offsetY)
   .attr('cx',function(d){ return d.X * NODE_DISTANCE + offsetX;})
   .attr('cy',function(d){ return d.Y * NODE_DISTANCE + offsetY;})
   .attr('r', 8)
-  .attr('fill', function(d){ return d.FirstChildId == 0 ? 'red' : 'green';})
+  .attr('fill', function(d){ return d.State == 1 ? 'green' : d.State == 2 ? 'red' : 'black';})
   .on('mouseover', OnMouseOver)					
   .on('mouseout', OnMouseOut);
 }
@@ -99,10 +122,10 @@ function OnMouseOver(d)
   .duration(200)	
   .style('opacity', .9);
   div.html(
-         'Time: ' + d.Time + '</br>'  +
          'Info: ' + d.Info.trim() + '</br>' +
+         '***************************' + '</br>' +
+         'ID End: ' + d.IDEnd + '</br>'  +        
          'Level: ' + d.Y + '</br>'  +
-         'Branch: ' + d.ChildID + '</br>' +
          'Parent: ' + d.ParenID + '</br>' +
          'First Child: ' + d.FirstChildId + '</br>' +
          'Left sibling: ' + d.LeftSibling + '</br>' +

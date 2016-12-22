@@ -20,17 +20,23 @@ namespace BBTree
   {
     private:
     std::string fileName;
+    std::string fileNodeEndName;
     public:
 
     TreeManager(const std::string& file)
     {
       this->fileName = file;
     }
+    TreeManager(const std::string& file, const std::string& fileNodeEnd)
+    {
+      this->fileName = file;
+      this->fileNodeEndName = fileNodeEnd;
+    }
 
     void WriteNodesAndEdges(int id, double width, double hight)
     {
       FileManager fm(fileName);
-      fm.Open();
+      fm.OpenRW();
       int64_t pos = fm.getFileSize() - RECORD_EXT_SIZE;
       NodePtr nodeLast = NodeHelper::GetNode(fm.Read(pos, RECORD_EXT_SIZE));
       if(id < 1 || id > nodeLast->id)
@@ -39,6 +45,15 @@ namespace BBTree
       NodePtr node = NodeHelper::GetNode(fm.Read(pos, RECORD_EXT_SIZE));
       fm.Close();
       WriteNodesAndEdges(node->x, node->y, width, hight); 
+    }
+    
+    void ShowNodeEnd(int id_end, double width, double hight)
+    {
+      FileManager fm(fileNodeEndName);
+      fm.OpenRW();
+      int id = NodeHelper::GetIdFromNodeEnd(fm.Read(Utils::Position(id_end, ID_NODE_END_RECORD_SIZE), ID_NODE_END_RECORD_SIZE));     
+      fm.Close();
+      WriteNodesAndEdges(id, width, hight);
     }
 
     void WriteNodesAndEdges(double x, double y, double width, double hight)
@@ -79,7 +94,7 @@ namespace BBTree
       std::vector<int> nodesId = GetLevelNodesId(level, leftBound, rightBound);
       NodeVec vec;
       FileManager fm(fileName);
-      fm.Open();
+      fm.OpenRW();
       for(auto it = nodesId.begin(); it!=nodesId.end(); ++it)
       {
         NodePtr node = NodeHelper::GetNode(fm.Read(Utils::Position(*it, RECORD_EXT_SIZE), RECORD_EXT_SIZE));
@@ -93,7 +108,7 @@ namespace BBTree
     {
        std::vector<int> vec;
        FileManager fm(Utils::GetLevelFileName(level));
-       fm.Open();
+       fm.OpenRW();
        int64_t streamsize = fm.getFileSize();     
        int64_t pos = BinarySearch(fm, streamsize, leftBound, rightBound);  
        if(pos!=NOT_FOUND)
@@ -144,7 +159,7 @@ namespace BBTree
     {
       EdgeMap edges;
       FileManager fm(fileName);
-      fm.Open();     
+      fm.OpenRW();     
       for(auto it = nodes.begin(); it != nodes.end(); ++it)
       {
 
@@ -190,7 +205,7 @@ namespace BBTree
     int GetMaxLevel()
     {
       FileManager fm(FILE_PATH_DEPTH);
-      fm.Open();
+      fm.OpenRW();
       int64_t pos = fm.getFileSize() - ALL_DEPTH_RECORD_SIZE;
       std::string level = fm.Read(pos, Y_SIZE);
       fm.Close();
@@ -207,6 +222,7 @@ namespace BBTree
           json jnode;
           jnode["Time"] = node->time;
           jnode["ID"] = node->id;
+          jnode["IDEnd"] = node->idEnd;
           jnode["ParenID"] = node->pid;
           jnode["ChildID"] = node->branch;
           jnode["State"] = node->nodeState;

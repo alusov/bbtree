@@ -36,7 +36,7 @@ public:
   int DoAnalysis()
   {
     CopyAndExtendFile(); 
-    fm.Open();
+    fm.OpenRW();
     int64_t streamsize = fm.getFileSize();
     int64_t currPos = 0;
     NodePtr node = NodeHelper::GetNode(fm.Read(currPos, RECORD_EXT_SIZE));
@@ -60,9 +60,9 @@ private:
   {  
       
     FileManager fmOld(fileName);
-    fmOld.Open();
+    fmOld.OpenRW();
     FileManager fmExt(fm.GetFile());       
-    fmExt.OpenW();
+    fmExt.OpenWA();
     
     int64_t streamsize = fmOld.getFileSize();
     int64_t currPos = 0;

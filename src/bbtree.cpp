@@ -5,6 +5,7 @@
 #include "api.h"
 #include "tree_simulator.h"
 #include "node_analysis.h"
+#include "node_end.h"
 #include "depth_analysis.h"
 #include "tree.h"
 #include "def.h"
@@ -23,22 +24,24 @@ first child. Tree layout module calculates X and Y coordinate. Notes Y coordinat
 is tree's level now. Depth analysis module calculates number of nodes/list nodes for each level.
 Also it prepares node's id/list nodes's id and X coordinate for each level.
 */
+
 int main(int argv, char** arg)
 {
-  Clear();
+  //Clear();
   try
   {
     clock_t t = clock();
 
-    TreeSimulator ts(15,3,1000, &create_node);
-    ts.SimulateTree();
-    storage.SaveBuf();
-
-    t = clock() - t;
-    std::cout << "tree simulator: " << ((float)t)/CLOCKS_PER_SEC << " c. \n";
+    //TreeSimulator ts(15,3,1000, &create_node);
+    //ts.SimulateTree();
+    //storage.SaveBuf();
+    //t = clock() - t;
+    //std::cout << "tree simulator: " << ((float)t)/CLOCKS_PER_SEC << " c. \n";
 
     NodeAnalysis nodeAnalysis(FILE_NAME, FILE_NAME_NEW);
     nodeAnalysis.DoAnalysis();
+    NodeEnd nodeEnd(FILE_NAME_NEW, FILE_NODE_END);
+    nodeEnd.CreateRelations();
     t = clock() - t;
     std::cout << "node analysis: " << ((float)t)/CLOCKS_PER_SEC << " c. \n";
 

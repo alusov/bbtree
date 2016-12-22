@@ -36,7 +36,7 @@ namespace BBTree
        return fs.is_open();
      }
 
-     void Open()
+     void OpenRW()
      {
        fs.exceptions(std::ifstream::failbit | std::ifstream::badbit );
        fs << std::right;
@@ -46,6 +46,15 @@ namespace BBTree
      }
      
      void OpenW()
+     {
+       fs.exceptions(std::ifstream::failbit | std::ifstream::badbit );
+       fs << std::right;
+       fs << std::setprecision(2);
+       fs << std::fixed;
+       fs.open(fileName.c_str(), std::fstream::out | std::fstream::binary);
+     }
+     
+     void OpenWA()
      {
        fs.exceptions(std::ifstream::failbit | std::ifstream::badbit );
        fs << std::right;
@@ -93,7 +102,7 @@ namespace BBTree
 
      void Write(int size, const std::string& value)
      {
-      	fs << std::setw(size) << value;
+      	fs << std::setw(size) << value.substr(0, size);
      }
      void Write(int size, int value)
      {

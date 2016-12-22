@@ -35,7 +35,7 @@ namespace BBTree
 ///That is main function. It calculates X and Y node's coordinates.
      void TreeLayout()
      {
-        fm.Open();
+        fm.OpenRW();
         NodePtr root = RootNode();
         FirstWalk(root);
         SecondWalk(root, -root->prelim, 0);

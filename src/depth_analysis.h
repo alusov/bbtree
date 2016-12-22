@@ -40,7 +40,7 @@ namespace BBTree
 ///Then it calculates common number of nodes/list nodes for each level.
     void DoAnalysis()
     {
-      fm.Open();
+      fm.OpenRW();
       NodePtr node = NodeHelper::GetNode(fm.Read(0, RECORD_EXT_SIZE));
       TreeWalk(node, 1);
       fm.Close();
@@ -71,7 +71,7 @@ namespace BBTree
       {      
         FileManager fsAll(Utils::GetLevelFileName(itDepth->first));
         FileManager fsList;
-        fsAll.OpenW();       
+        fsAll.OpenWA();       
         for(auto itNumber=itDepth->second.begin(); itNumber!=itDepth->second.end(); ++itNumber)
         {
           fsAll.Write(ID_SIZE, itNumber->id); fsAll.Write(D_R_SIZE, D_R);        
@@ -81,7 +81,7 @@ namespace BBTree
             if(!fsList.IsOpen())
             {
               fsList.SetFile(Utils::GetListLevelFileName(itDepth->first));
-              fsList.OpenW();
+              fsList.OpenWA();
             }
             fsList.Write(ID_SIZE, itNumber->id);  fsList.Write(1, '\n');
           }         
@@ -103,7 +103,7 @@ namespace BBTree
     void SaveDepthAndNumber()
     {
       FileManager fm(FILE_PATH_DEPTH);
-      fm.OpenW();
+      fm.OpenWA();
       for(auto it=depthNumber.begin(); it!=depthNumber.end(); ++it)
       {
         fm.Write(Y_SIZE, it->first); fm.Write(D_R_SIZE, D_R);
