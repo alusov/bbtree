@@ -122,8 +122,8 @@ function OnMouseOver(d)
   .duration(200)	
   .style('opacity', .9);
   div.html(
-         'Info: ' + d.Info.trim() + '</br>' +
-         '***************************' + '</br>' +
+         d.Info.trim().replace(/[\n]/g, '</br>') + '</br>' +
+         '*************************************' + '</br>' +
          'ID End: ' + d.IDEnd + '</br>'  +        
          'Level: ' + d.Y + '</br>'  +
          'Parent: ' + d.ParenID + '</br>' +
