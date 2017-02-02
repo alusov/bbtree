@@ -1,0 +1,6 @@
+[submodule "testsubmod"]
+	path = testsubmod
+	url = https://github.com/alusov/testsubmod.git
+[submodule "testsubmod2"]
+	path = testsubmod2
+	url = https://github.com/alusov/testsubmod2.git
