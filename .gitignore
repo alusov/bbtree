@@ -2,7 +2,7 @@
 *.a
 *.o
 *.exe
-data/
+data
 
 #temporary files
 deps.inc
