@@ -1,4 +1,6 @@
 1. Install nodejs https://nodejs.org/en/download/package-manager/
+sudo apt-get install -y nodejs
 2. Install express http://expressjs.com/en/starter/installing.html
+npm install express --save
 3. to start server: nodejs server.js
 4. start page: http://127.0.0.1:8081/index.htm

@@ -8,9 +8,9 @@
     "start": "node server.js"
   },
   "author": "Alexander Usov",
-  "license": "ISC",
+  "license": "BSD-2-Clause",
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "~4.14.1"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,6 @@
   "bugs": {
     "url": "https://github.com/n/A/issues"
   },
-  "homepage": "https://github.com/n/A#readme"
+  "homepage": "https://github.com/n/A#readme",
+  "devDependencies": {}
 }

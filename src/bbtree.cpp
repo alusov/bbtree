@@ -27,16 +27,16 @@ Also it prepares node's id/list nodes's id and X coordinate for each level.
 
 int main(int argv, char** arg)
 {
-  //Clear();
+  Clear();
   try
   {
     clock_t t = clock();
 
-    //TreeSimulator ts(15,3,1000, &create_node);
-    //ts.SimulateTree();
-    //storage.SaveBuf();
-    //t = clock() - t;
-    //std::cout << "tree simulator: " << ((float)t)/CLOCKS_PER_SEC << " c. \n";
+    TreeSimulator ts(15,3,1000, &create_node);
+    ts.SimulateTree();
+    storage.SaveBuf();
+    t = clock() - t;
+    std::cout << "tree simulator: " << ((float)t)/CLOCKS_PER_SEC << " c. \n";
 
     NodeAnalysis nodeAnalysis(FILE_NAME, FILE_NAME_NEW);
     nodeAnalysis.DoAnalysis();

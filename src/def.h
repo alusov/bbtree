@@ -64,11 +64,11 @@
     #define FILE_NODE_END "./../data/node_end.data"
     #define FILE_DEPTH_FOLDER "./../data/"
 #else
-    #define FILE_NAME "./data/buf.data"
-    #define FILE_NAME_NEW "./data/buf_new.data"
-    #define FILE_PATH_DEPTH "./data/depth.data"
-    #define FILE_NODE_END "./data/node_end.data"
-    #define FILE_DEPTH_FOLDER "./data/"
+    #define FILE_NAME "./../data/buf.data"
+    #define FILE_NAME_NEW "./../data/buf_new.data"
+    #define FILE_PATH_DEPTH "./../data/depth.data"
+    #define FILE_NODE_END "./../data/node_end.data"
+    #define FILE_DEPTH_FOLDER "./../data/"
 #endif
 
 
