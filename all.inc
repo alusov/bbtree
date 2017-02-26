@@ -1,4 +1,4 @@
-#General make file settings
+#General make file settings...
 CC = cc
 CPP = c++
 LIBTOOL = ar -r
